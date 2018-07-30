@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import re
 import os
 
 class DataAnalyse:
@@ -27,12 +28,18 @@ class DataAnalyse:
         with open(self.result+"\\number_"+str(self.num)+".txt","wb") as f:
             for eachLine in fopen:
                  if len(eachLine) > 20:
-                     f.write(eachLine)
+                     f.write(self.analyze(eachLine))
         self.num += 1
 
     #def plot(self):
 
-    #def analyze(self):
+    def analyze(self,byte):
+        eachLine = str(byte,encoding='utf-8')
+        strinfo = re.compile(',')
+        finalStr = strinfo.sub('|',eachLine)
+        byteLine = bytes(finalStr,encoding='utf-8')
+
+        return byteLine
 
     def run(self):
         self.getFiles()
